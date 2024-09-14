@@ -6,8 +6,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*, ::after, ::before {
+  box-sizing: border-box;}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.btn {
+  margin: 0;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: #c1cad2;
+  color: black;
+  text-decoration: none;
+}
+
