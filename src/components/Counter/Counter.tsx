@@ -10,8 +10,6 @@ const Counter: React.FC = () => {
       <h1>Counter</h1>
       <button onClick={() => setIncrement(increment + 1)}>+1</button>
       <button onClick={() => setIncrement(increment - 1)}>-1</button>
-      <button onClick={() => setIncrement(increment / 2)}>/2</button>
-      <button onClick={() => setIncrement(increment * increment)}>*self</button>
       <button onClick={() => setIncrement(0)}>res</button>
       <p>{increment}</p>
     </div>

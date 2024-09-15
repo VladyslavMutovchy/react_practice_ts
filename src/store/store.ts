@@ -1,13 +1,15 @@
+// store/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import storeAbout from './storeAbout';
 
-// Пример простого слайса для редукса
 const store = configureStore({
   reducer: {
-    // Добавь свои редьюсеры здесь
+    data: storeAbout,
   },
+  // Можно добавить middleware, если это необходимо
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch: () => AppDispatch = useDispatch;
+
 export default store;
