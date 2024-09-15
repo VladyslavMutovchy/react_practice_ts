@@ -16,6 +16,9 @@ const Home: React.FC = () => {
       <Link className={styles.link_btn} to="/tasks">
         Tasks list
       </Link>
+      <Link className={styles.link_btn} to="/dashboard">
+      True/False game
+      </Link>
       <Link className={styles.link_btn} to="/team-search">
         IBench Team Search
       </Link>

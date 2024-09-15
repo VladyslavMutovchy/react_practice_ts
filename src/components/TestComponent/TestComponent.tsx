@@ -2,20 +2,24 @@
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux'; // Импорт connect
-import { setData, clearData } from '../../actions/actionAbout';
+import { setData, clearData } from '../../store/storeAbout';
 import { RootState } from '../../store/store';
 
 interface TestComponentProps {
   setData: (data: string) => void;
   clearData: () => void;
-  data: string | null;
+  data: any | null;
 }
 
-const TestComponent: React.FC<TestComponentProps> = ({
-  setData,
-  clearData,
-  data,
-}) => {
+const TestComponent: React.FC<TestComponentProps> = (props) => {
+  const {
+    setData,
+    clearData,
+    data,
+  } = props;
+
+  console.log('===data', data);
+
   const [text, setText] = useState<string>('');
 
   const handleSetData = () => {
@@ -43,7 +47,7 @@ const TestComponent: React.FC<TestComponentProps> = ({
 };
 
 const mapStateToProps = (state: RootState) => ({
-  data: state.data.data || null,
+  data: state.storeAbout.data || null,
 });
 
 const mapDispatchToProps = {

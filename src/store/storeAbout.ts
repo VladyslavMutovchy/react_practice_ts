@@ -4,10 +4,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface DataState {
   data: string | null;
+  name: string | null;
 }
 
 const initialState: DataState = {
   data: null,
+  name: 'Dima',
 };
 
 const storeAboutSlice = createSlice({
