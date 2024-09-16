@@ -1,0 +1,121 @@
+.container {
+  position: relative;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+}
+.input_area,
+.list {
+  margin: 20px 0;
+  font-size: 26px;
+  padding: 10px 90px 10px 40px;
+  border-radius: 20px;
+  border: 1px solid #aeacc7;
+  outline: none;
+  width: 800px;
+}
+.input_area_small {
+  margin: 20px 0;
+  font-size: 20px;
+  padding: 10px 10px;
+  border-radius: 20px;
+  border: 1px solid #aeacc7;
+  outline: none;
+  width: 600px;
+}
+.btn {
+  position: absolute;
+  right: -70px;
+  top: 68px;
+  background-color: #ffffff00;
+  width: 50px;
+  height: 50px;
+  background-color: #908e8e;
+  background-size: cover;
+}
+.btn:hover {
+  transform: scale(1.06);
+}
+.list div {
+  position: relative;
+  
+  margin: 20px 0;
+}
+.btn_save,
+.btn_delete,
+.btn_edit,
+.btn_subTitle {
+  background-size: cover;
+  background-color: #ffffff00;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: -20px;
+  border-radius: 10px;
+  opacity: 0.9;
+  font-weight: 900;
+  box-shadow: 0 10px 12px 0 rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+.btn_subTitle {
+  right: -80px;
+  background-color: #4b9fa0;
+}
+.btn_save {
+  background-color: #00005f;
+}
+.btn_edit {
+  background-color: #505050;
+  right: -35px;
+}
+.btn_delete,
+.delete_all {
+  right: 10px;
+  background-color: #9b0000;
+}
+
+.list {
+  font-size: 20px;
+  min-height: 500px;
+  background-color: #ffffff;
+}
+
+.delete_all {
+  background-size: cover;
+  background-color: #aa0000;
+  width: 220px;
+  height: 70px;
+  border-radius: 10px;
+  opacity: 0.9;
+  font-weight: 900;
+  box-shadow: 0 10px 12px 0 rgba(0, 0, 0, 0.5);
+  font-size: 32px;
+}
+.subtask {
+  padding-left: 20px;
+}
+
+.btn_arrow_top,
+.btn_arrow_bottom,
+.btn_arrow_sub_top,
+.btn_arrow_sub_bottom {
+  position: absolute;
+  left: -36px;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: #adadad;
+  padding: 0 2px 4px;
+  margin: 2px;
+}
+
+.btn_arrow_bottom {
+  left: -20px;
+}
+.btn_arrow_sub_top{
+  left: -14px;
+  background-color: #4b9fa0;
+}
+.btn_arrow_sub_bottom {
+  left: 2px;
+  background-color: #4b9fa0;
+}

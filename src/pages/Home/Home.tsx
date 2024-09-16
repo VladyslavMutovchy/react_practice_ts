@@ -13,7 +13,7 @@ const Home: React.FC = () => {
       <Link className={styles.link_btn} to="/about">
         About
       </Link>
-      <Link className={styles.link_btn} to="/tasks">
+      <Link className={styles.link_btn} to="/task_list">
         Tasks list
       </Link>
       <Link className={styles.link_btn} to="/dashboard">
