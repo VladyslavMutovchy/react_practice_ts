@@ -139,7 +139,7 @@ const TaskList: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="wrapper">
+    <div className={styles.wrapper}>
       <div className={styles.container}>
         <h1>Vladushka's tasks</h1>
         <input
@@ -202,5 +202,5 @@ const mapDispatchToProps = {
 const mapStateToProps = (state: RootState) => ({
   taskList: state.storeTaskList.taskList,
 });
-
+// eslint-disable-next-line 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
