@@ -32,9 +32,19 @@ interface Props {
   deleteTask: (index: number) => void;
   updateTaskList: (task: Task[]) => void;
   addTask: (task: Task) => void;
-  updateTask: (task: Task) => void;
+  updateTask: (taskData: any) => void;
+  // updateTask: (taskData: { index: number;  taskData: Task }) => void;
   taskList: Task[];
 }
+
+// interface Props {
+//   getTask: () => void;
+//   deleteTask: (index: number) => void;
+//   updateTaskList: (task: Task[]) => void;
+//   addTask: (task: Task) => void;
+//   updateTask: (task: Task) => void;
+//   taskList: Task[];
+// }
 
 const TaskList: React.FC<Props> = (props) => {
   const {
@@ -45,8 +55,6 @@ const TaskList: React.FC<Props> = (props) => {
     updateTask,
     taskList: propsTaskList,
   } = props;
-
-
   
   const [task, setTask] = useState<string>('');
   const [taskList, setTaskList] = useState<Task[]>([]); // Состояние для списка задач

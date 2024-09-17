@@ -2,13 +2,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import storeAbout from './storeAbout';
 import storeTaskList from './storeTaskList';
+import storeAdminList from './storeAdminList';
 
 
 
 const store = configureStore({
   reducer: {
     storeAbout,
-    storeTaskList
+    storeTaskList,
+    storeAdminList,
   },
   // Можно добавить middleware, если это необходимо
 });
