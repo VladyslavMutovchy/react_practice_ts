@@ -25,20 +25,19 @@ const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    // Экшн для установки новых задач
     setTasks: (state, action: PayloadAction<Task[]>) => {
       state.taskList = action.payload;
     },
-    // Экшн для удаления задачи
+    
     deleteTask: (state, action: PayloadAction<number>) => {
-      state.taskList.splice(action.payload, 1);
+      state.taskList.splice(action.payload, 1); // Удаление задачи по индексу
+      localStorage.setItem('taskList', JSON.stringify(state.taskList)); // Обновление localStorage
     },
-    // Экшн для обновления всего списка задач
+    
     updateTaskList: (state, action: PayloadAction<Task[]>) => {
       state.taskList = action.payload;
       localStorage.setItem('taskList', JSON.stringify(state.taskList));
     },
-    // Экшн для добавления новой задачи
     addTask: (state, action: PayloadAction<Task>) => {
       state.taskList.push(action.payload);
       localStorage.setItem('taskList', JSON.stringify(state.taskList));
@@ -46,9 +45,12 @@ const taskSlice = createSlice({
     // Экшн для обновления конкретной задачи по индексу
     updateTask: (state, action: PayloadAction<{ index: number; taskData: Task }>) => {
       const { index, taskData } = action.payload;
-      state.taskList[index] = taskData;
-      localStorage.setItem('taskList', JSON.stringify(state.taskList));
+      
+      state.taskList[index] = taskData; // Проблема может быть здесь
+    
+      localStorage.setItem('taskList', JSON.stringify(state.taskList)); // Обновление в localStorage
     },
+    
   },
 });
 

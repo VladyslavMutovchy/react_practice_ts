@@ -94,29 +94,49 @@ const TaskList: React.FC<Props> = (props) => {
 
   const handleDeleteSubTask = (index: number, subIndex: number) => {
     const newTaskList = [...taskList];
-    newTaskList[index].subTasks.splice(subIndex, 1);
+    const updatedSubTasks = [...newTaskList[index].subTasks];
+    updatedSubTasks.splice(subIndex, 1);
+    newTaskList[index] = { ...newTaskList[index], subTasks: updatedSubTasks };
     updateTaskList(newTaskList);
   };
+  
 
   const handleEditTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditTask(e.target.value);
   };
 
+  // const handleSaveEditTask = (index: number) => {
+  //   const newTaskList = [...taskList];
+  //   newTaskList[index].task = editTask;
+  //   updateTaskList(newTaskList);
+  //   setEditIndex(null);
+  //   setEditTask('');
+  // };
+
   const handleSaveEditTask = (index: number) => {
-    const newTaskList = [...taskList];
-    newTaskList[index].task = editTask;
-    updateTaskList(newTaskList);
-    setEditIndex(null);
-    setEditTask('');
+    const updatedTask = { ...taskList[index], task: editTask }; // Обновляем задачу
+  
+    updateTask({ index, taskData: updatedTask }); // Используем экшен для обновления задачи
+    
+    setEditIndex(null); // Сбрасываем редактирование
+    setEditTask(''); // Очищаем поле ввода
   };
+  
+  
 
   const handleSaveEditSubTask = (index: number, subIndex: number) => {
     const newTaskList = [...taskList];
-    newTaskList[index].subTasks[subIndex].task = editTask;
+    const updatedSubTasks = [...newTaskList[index].subTasks];
+    const updatedSubTask = { ...updatedSubTasks[subIndex], task: editTask };
+    updatedSubTasks[subIndex] = updatedSubTask;
+    newTaskList[index] = { ...newTaskList[index], subTasks: updatedSubTasks };
+  
     updateTaskList(newTaskList);
+  
     setEditSubIndex([null, null]);
     setEditTask('');
   };
+  
 
   const handleEditSubTask = (index: number, subIndex: number) => {
     setEditSubIndex([index, subIndex]);
@@ -129,13 +149,31 @@ const TaskList: React.FC<Props> = (props) => {
   };
 
   const addSubTask = (index: number) => {
-    const newTaskList = [...taskList];
+    const newTaskList = [...taskList];// Глубокая копия подзадач, чтобы избежать мутаций
+    const updatedSubTasks = [...newTaskList[index].subTasks];
+  
     const newSubTask: SubTask = {
-      task: 'Subtask ' + (taskList[index].subTasks.length + 1),
+      task: 'Subtask ' + (updatedSubTasks.length + 1), // Используем копию подзадач
     };
-    newTaskList[index].subTasks.push(newSubTask);
+    
+    updatedSubTasks.push(newSubTask);
+    newTaskList[index] = {
+      ...newTaskList[index], // Сохраняем остальные поля задачи
+      subTasks: updatedSubTasks, // Обновляем подзадачи
+    };
+  
     updateTaskList(newTaskList);
   };
+  
+
+  // const addSubTask = (index: number) => {
+  //   const newTaskList = [...taskList];
+  //   const newSubTask: SubTask = {
+  //     task: 'Subtask ' + (taskList[index].subTasks.length + 1),
+  //   };
+  //   newTaskList[index].subTasks.push(newSubTask);
+  //   updateTaskList(newTaskList);
+  // };
 
   const changePosition = (index: number, newIndex: number) => {
     const newTaskList = [...taskList];

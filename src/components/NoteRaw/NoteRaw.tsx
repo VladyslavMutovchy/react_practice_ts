@@ -216,17 +216,23 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
   };
 
   const changePositionSub = (index: number, subIndex: number, newSubIndex: number) => {
-    const newTaskList = [...taskList];
-    [
-      newTaskList[index].subTasks[subIndex],
-      newTaskList[index].subTasks[newSubIndex],
-    ] = [
-      newTaskList[index].subTasks[newSubIndex],
-      newTaskList[index].subTasks[subIndex],
+    const newTaskList = [...taskList]; // копируем taskList
+    
+    const newSubTasks = [...newTaskList[index].subTasks];
+    
+    
+    [newSubTasks[subIndex], newSubTasks[newSubIndex]] = [
+      newSubTasks[newSubIndex],
+      newSubTasks[subIndex],
     ];
-    updateTaskList(newTaskList);
+    newTaskList[index] = {
+      ...newTaskList[index], 
+      subTasks: newSubTasks,
+    };
+    
+    updateTaskList(newTaskList); // Обновляем список задач
   };
-
+  
   return (
     <div>
       {renderEdit(taskData, index)}
