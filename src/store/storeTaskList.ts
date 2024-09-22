@@ -27,9 +27,11 @@ const taskSlice = createSlice({
   reducers: {
     setTasks: (state, action: PayloadAction<Task[]>) => {
       state.taskList = action.payload;
+      console.log('===state.taskList', state.taskList);
     },
     
     deleteTask: (state, action: PayloadAction<number>) => {
+      console.log('===DELETE state.taskList', state.taskList);
       state.taskList.splice(action.payload, 1); // Удаление задачи по индексу
       localStorage.setItem('taskList', JSON.stringify(state.taskList)); // Обновление localStorage
     },
@@ -39,14 +41,17 @@ const taskSlice = createSlice({
       localStorage.setItem('taskList', JSON.stringify(state.taskList));
     },
     addTask: (state, action: PayloadAction<Task>) => {
+      console.log('===state.taskList', state.taskList);
       state.taskList.push(action.payload);
       localStorage.setItem('taskList', JSON.stringify(state.taskList));
     },
     // Экшн для обновления конкретной задачи по индексу
     updateTask: (state, action: PayloadAction<{ index: number; taskData: Task }>) => {
+      console.log('====state.taskList', state.taskList);
       const { index, taskData } = action.payload;
-      
-      state.taskList[index] = taskData; // Проблема может быть здесь
+      // const { taskList } = state;
+      // taskList[index] = taskData;
+      // state.taskList = taskList;
     
       localStorage.setItem('taskList', JSON.stringify(state.taskList)); // Обновление в localStorage
     },

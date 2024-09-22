@@ -1,22 +1,34 @@
 // store/storeAbout.ts
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+
+import { adminListAPI  } from '../api/adminlist';
+
+export const saveValue = createAsyncThunk(
+  'storeAbout/saveValue',
+  async (dataItem) => {
+    const newDataItem = await adminListAPI.add(dataItem);
+    return newDataItem;
+  }
+)
 
 interface AdminListState {
-  dataList: [] | null;
+  dataList: [];
+  status: string;
 }
 
 const initialState: AdminListState = {
   dataList: [],
+  status: 'idle',
 };
 
 const storeAdminList = createSlice({
   name: 'storeAbout',
   initialState,
   reducers: {
-    saveValue() {
-      
-    },
+    // async saveValue(dataItem: any) {
+    //   const newDataItem = await adminListAPI.add(dataItem);
+    // },
     getData() {
       
     },
@@ -39,10 +51,24 @@ const storeAdminList = createSlice({
       
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(saveValue.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(saveValue.fulfilled, (state: any, action: any) => {
+        state.status = 'succeeded';
+        console.log('===action.payload', action.payload);
+        state.dataList = [action.payload];
+        // state.dataList.push(action.payload);
+      })
+      .addCase(saveValue.rejected, (state) => {
+        state.status = 'failed';
+      });
+  },
 });
 
 export const { 
-  saveValue,
   getData,
   cleanAll,
   deleteValue,

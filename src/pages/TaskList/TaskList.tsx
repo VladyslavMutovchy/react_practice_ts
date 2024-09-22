@@ -70,7 +70,7 @@ const TaskList: React.FC<Props> = (props) => {
   }, [getTask]);
 
   useEffect(() => {
-    setTaskList(propsTaskList);
+    setTaskList([...propsTaskList]);
   }, [propsTaskList]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -248,5 +248,6 @@ const mapDispatchToProps = {
 const mapStateToProps = (state: RootState) => ({
   taskList: state.storeTaskList.taskList,
 });
+
 // eslint-disable-next-line 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
