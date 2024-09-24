@@ -45,19 +45,19 @@ const taskSlice = createSlice({
       state.taskList.push(action.payload);
       localStorage.setItem('taskList', JSON.stringify(state.taskList));
     },
-    updateTask: (state, action: PayloadAction<{ index: number; taskData: Task }>) => {
-      console.log('Action payload:', action.payload);
-      const { index, taskData } = action.payload;
-      
-        console.log('Updating task at index:', index);
-      if (index !== undefined && taskData) {
-        state.taskList[index] = taskData;
-        localStorage.setItem('taskList', JSON.stringify(state.taskList));
-      }
-    }
-    
-    
-    
+updateTask: (state, action: PayloadAction<{ taskData: Task; index: number }>) => {
+  const { index, taskData } = action.payload;
+  console.log('Updating Task at Index:', index);
+  console.log('Task Data:', taskData);
+
+  if (index !== undefined && taskData) {
+    state.taskList[index] = taskData; // Обновляем задачу
+    localStorage.setItem('taskList', JSON.stringify(state.taskList)); // Сохраняем в localStorage
+  } else {
+    console.log('Index or taskData is invalid');
+  }
+},
+
     
   },
 });

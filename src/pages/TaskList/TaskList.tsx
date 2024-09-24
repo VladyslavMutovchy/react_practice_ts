@@ -112,19 +112,7 @@ const TaskList: React.FC<Props> = (props) => {
   //   setEditTask('');
   // };
 
-  const handleSaveEditTask = (index: number) => {
-    console.log('Index:', index); // Логирование индекса
-    console.log('Edit Task:', editTask); // Логирование задачи
-  
-    const updatedTask = { ...taskList[index], task: editTask };
-  
-    console.log('Updated Task:', updatedTask); // Логирование обновленной задачи
-  
-    updateTask({ index, taskData: updatedTask });
-  
-    setEditIndex(null);
-    setEditTask('');
-  };
+ 
   
   const handleEditTask = (index: number) => {
     setEditIndex(index)
@@ -215,7 +203,6 @@ const TaskList: React.FC<Props> = (props) => {
                 index={index}
                 setEditIndex={setEditIndex}
                 changePosition={changePosition}
-                handleSaveEditTask={handleSaveEditTask}
                 editSubIndex={editSubIndex}
                 handleEditTask={handleEditTask}
                 handleEditTaskChange={handleEditTaskChange}

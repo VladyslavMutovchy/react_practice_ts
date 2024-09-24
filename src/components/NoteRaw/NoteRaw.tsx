@@ -29,8 +29,9 @@ interface NoteRawProps {
   handleEditSubTask: (index: number, subIndex: number) => void;
   handleDeleteSubTask: (index: number, subIndex: number) => void;
   updateTaskList: (taskList: Task[]) => void;
-  updateTask: (taskData: Task, index: number | null) => void;
-  handleSaveEditTask: (index: number) => void;
+  updateTask: (taskData: any) => void;
+  //updateTask: (taskData: Task, index: number | null) => void;
+  
 }
 
 const NoteRaw: React.FC<NoteRawProps> = (props) => {
@@ -63,11 +64,13 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
 
   const savedTasksHandler = () => {
     const updatedTask = { ...taskData, task };
-    console.log('======>editIndex',updatedTask, editIndex);
-    updateTask(updatedTask, editIndex);
+    console.log('Updated Task:', updatedTask);
+    console.log('Edit Index:', editIndex);
+    updateTask({ taskData: updatedTask, index: editIndex });
     setIsEdit(false);
     setEditIndex(null); // Сбрасываем индекс после сохранения
   };
+  
 
   const renderMoveTop = (index: number) => {
     if (index > 0) {
@@ -123,7 +126,8 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
         {taskData.task}
         <button
           onClick={() => {
-            setIsEdit(true); handleEditTask(index);
+            setIsEdit(true);
+            handleEditTask(index);
           }}
           className={styles.btn_edit}
         >
