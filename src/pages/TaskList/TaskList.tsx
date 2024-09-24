@@ -55,7 +55,7 @@ const TaskList: React.FC<Props> = (props) => {
     updateTask,
     taskList: propsTaskList,
   } = props;
-  
+
   const [task, setTask] = useState<string>('');
   const [taskList, setTaskList] = useState<Task[]>([]); // Состояние для списка задач
   const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -70,7 +70,7 @@ const TaskList: React.FC<Props> = (props) => {
   }, [getTask]);
 
   useEffect(() => {
-    setTaskList([...propsTaskList]);
+    setTaskList(propsTaskList);
   }, [propsTaskList]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +99,6 @@ const TaskList: React.FC<Props> = (props) => {
     newTaskList[index] = { ...newTaskList[index], subTasks: updatedSubTasks };
     updateTaskList(newTaskList);
   };
-  
 
   const handleEditTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditTask(e.target.value);
@@ -114,29 +113,35 @@ const TaskList: React.FC<Props> = (props) => {
   // };
 
   const handleSaveEditTask = (index: number) => {
-    const updatedTask = { ...taskList[index], task: editTask }; // Обновляем задачу
+    console.log('Index:', index); // Логирование индекса
+    console.log('Edit Task:', editTask); // Логирование задачи
   
-    updateTask({ index, taskData: updatedTask }); // Используем экшен для обновления задачи
-    
-    setEditIndex(null); // Сбрасываем редактирование
-    setEditTask(''); // Очищаем поле ввода
+    const updatedTask = { ...taskList[index], task: editTask };
+  
+    console.log('Updated Task:', updatedTask); // Логирование обновленной задачи
+  
+    updateTask({ index, taskData: updatedTask });
+  
+    setEditIndex(null);
+    setEditTask('');
   };
   
-  
+  const handleEditTask = (index: number) => {
+    setEditIndex(index)
 
+  }
   const handleSaveEditSubTask = (index: number, subIndex: number) => {
     const newTaskList = [...taskList];
     const updatedSubTasks = [...newTaskList[index].subTasks];
     const updatedSubTask = { ...updatedSubTasks[subIndex], task: editTask };
     updatedSubTasks[subIndex] = updatedSubTask;
     newTaskList[index] = { ...newTaskList[index], subTasks: updatedSubTasks };
-  
+
     updateTaskList(newTaskList);
-  
+
     setEditSubIndex([null, null]);
     setEditTask('');
   };
-  
 
   const handleEditSubTask = (index: number, subIndex: number) => {
     setEditSubIndex([index, subIndex]);
@@ -149,22 +154,21 @@ const TaskList: React.FC<Props> = (props) => {
   };
 
   const addSubTask = (index: number) => {
-    const newTaskList = [...taskList];// Глубокая копия подзадач, чтобы избежать мутаций
+    const newTaskList = [...taskList]; // Глубокая копия подзадач, чтобы избежать мутаций
     const updatedSubTasks = [...newTaskList[index].subTasks];
-  
+
     const newSubTask: SubTask = {
       task: 'Subtask ' + (updatedSubTasks.length + 1), // Используем копию подзадач
     };
-    
+
     updatedSubTasks.push(newSubTask);
     newTaskList[index] = {
       ...newTaskList[index], // Сохраняем остальные поля задачи
       subTasks: updatedSubTasks, // Обновляем подзадачи
     };
-  
+
     updateTaskList(newTaskList);
   };
-  
 
   // const addSubTask = (index: number) => {
   //   const newTaskList = [...taskList];
@@ -209,9 +213,11 @@ const TaskList: React.FC<Props> = (props) => {
                 editIndex={editIndex}
                 editTask={editTask}
                 index={index}
+                setEditIndex={setEditIndex}
                 changePosition={changePosition}
                 handleSaveEditTask={handleSaveEditTask}
                 editSubIndex={editSubIndex}
+                handleEditTask={handleEditTask}
                 handleEditTaskChange={handleEditTaskChange}
                 handleDeleteTask={handleDeleteTask}
                 addSubTask={addSubTask}
@@ -248,6 +254,5 @@ const mapDispatchToProps = {
 const mapStateToProps = (state: RootState) => ({
   taskList: state.storeTaskList.taskList,
 });
-
-// eslint-disable-next-line 
+// eslint-disable-next-line
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

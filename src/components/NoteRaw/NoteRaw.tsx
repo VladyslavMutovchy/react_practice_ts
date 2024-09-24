@@ -14,6 +14,7 @@ interface Task {
 
 interface NoteRawProps {
   editIndex: number | null;
+  setEditIndex: (index: number | null) => void;
   taskData: Task;
   editTask: string;
   index: number;
@@ -21,14 +22,15 @@ interface NoteRawProps {
   changePosition: (index: number, newIndex: number) => void;
   editSubIndex: [number | null, number | null];
   handleDeleteTask: (index: number) => void;
+  handleEditTask: (index: number) => void;
   handleEditTaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
   addSubTask: (index: number) => void;
   handleSaveEditSubTask: (index: number, subIndex: number) => void;
-  handleEditSubTask: (index: number, subIndex: number ) => void;
+  handleEditSubTask: (index: number, subIndex: number) => void;
   handleDeleteSubTask: (index: number, subIndex: number) => void;
   updateTaskList: (taskList: Task[]) => void;
-  updateTask: (taskData: Task, index: number) => void;
-  handleSaveEditTask: (index: number) => void; 
+  updateTask: (taskData: Task, index: number | null) => void;
+  handleSaveEditTask: (index: number) => void;
 }
 
 const NoteRaw: React.FC<NoteRawProps> = (props) => {
@@ -39,15 +41,17 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
     index,
     taskList,
     changePosition,
+    setEditIndex,
     editSubIndex,
     handleDeleteTask,
+    handleEditTask,
     handleEditTaskChange,
     addSubTask,
     handleSaveEditSubTask,
     handleEditSubTask,
     handleDeleteSubTask,
     updateTaskList,
-    updateTask
+    updateTask,
   } = props;
 
   const [isEdit, setIsEdit] = useState(false);
@@ -59,8 +63,10 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
 
   const savedTasksHandler = () => {
     const updatedTask = { ...taskData, task };
-    updateTask(updatedTask, index);
+    console.log('======>editIndex',updatedTask, editIndex);
+    updateTask(updatedTask, editIndex);
     setIsEdit(false);
+    setEditIndex(null); // Сбрасываем индекс после сохранения
   };
 
   const renderMoveTop = (index: number) => {
@@ -115,7 +121,12 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
         {renderMoveTop(index)}
         {renderMoveBottom(index)}
         {taskData.task}
-        <button onClick={() => setIsEdit(true)} className={styles.btn_edit}>
+        <button
+          onClick={() => {
+            setIsEdit(true); handleEditTask(index);
+          }}
+          className={styles.btn_edit}
+        >
           Edit
         </button>
         <button
@@ -134,7 +145,11 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
     );
   };
 
-  const renderSubEdit = (subTaskData: SubTask, subIndex: number, index: number) => {
+  const renderSubEdit = (
+    subTaskData: SubTask,
+    subIndex: number,
+    index: number,
+  ) => {
     if (editSubIndex[0] === index && editSubIndex[1] === subIndex) {
       return (
         <>
@@ -215,24 +230,27 @@ const NoteRaw: React.FC<NoteRawProps> = (props) => {
     return null;
   };
 
-  const changePositionSub = (index: number, subIndex: number, newSubIndex: number) => {
+  const changePositionSub = (
+    index: number,
+    subIndex: number,
+    newSubIndex: number,
+  ) => {
     const newTaskList = [...taskList]; // копируем taskList
-    
+
     const newSubTasks = [...newTaskList[index].subTasks];
-    
-    
+
     [newSubTasks[subIndex], newSubTasks[newSubIndex]] = [
       newSubTasks[newSubIndex],
       newSubTasks[subIndex],
     ];
     newTaskList[index] = {
-      ...newTaskList[index], 
+      ...newTaskList[index],
       subTasks: newSubTasks,
     };
-    
+
     updateTaskList(newTaskList); // Обновляем список задач
   };
-  
+
   return (
     <div>
       {renderEdit(taskData, index)}

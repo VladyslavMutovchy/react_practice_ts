@@ -45,16 +45,19 @@ const taskSlice = createSlice({
       state.taskList.push(action.payload);
       localStorage.setItem('taskList', JSON.stringify(state.taskList));
     },
-    // Экшн для обновления конкретной задачи по индексу
     updateTask: (state, action: PayloadAction<{ index: number; taskData: Task }>) => {
-      console.log('====state.taskList', state.taskList);
+      console.log('Action payload:', action.payload);
       const { index, taskData } = action.payload;
-      // const { taskList } = state;
-      // taskList[index] = taskData;
-      // state.taskList = taskList;
+      
+        console.log('Updating task at index:', index);
+      if (index !== undefined && taskData) {
+        state.taskList[index] = taskData;
+        localStorage.setItem('taskList', JSON.stringify(state.taskList));
+      }
+    }
     
-      localStorage.setItem('taskList', JSON.stringify(state.taskList)); // Обновление в localStorage
-    },
+    
+    
     
   },
 });
