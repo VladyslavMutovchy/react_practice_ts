@@ -46,6 +46,7 @@ const AdminList: React.FC<Props> = (props) => {
   const [age, setAge] = useState<any>('');
   const [skill, setSkill] = useState<any>('');
   const [currentId, setCurrentId] = useState<any>(null);
+  const [skillId, setSkillId] = useState<any>(null);
   const [modalIsSaved, setModalIsSaved] = useState<any>(false);
   const [modalInputSkill, setModalInputSkill] = useState<any>(false);
   const [skillRedactionStatus, setSkillRedactionStatus] = useState<any>(false);
@@ -200,7 +201,7 @@ const AdminList: React.FC<Props> = (props) => {
       // Исправлено название функции
       const obj = {
         skill: getRandomSkills(),
-        id_datum: dataItem.id, // Используем dataItem.id вместо currentId
+        datum_id: dataItem.id, // Используем dataItem.id вместо currentId
       };
       return obj;
     }
@@ -289,15 +290,15 @@ const AdminList: React.FC<Props> = (props) => {
       if (skillRedactionStatus == true) {
         const dataItem = {
           skill: skill,
-          skill_id: currentId,
-          id_datum: currentIdForSkillSave,
+          id: skillId,
+          datum_id: currentIdForSkillSave,
         };
         //console.log('dataItem =>', dataItem);
         editSkillValue(dataItem);
       } else {
         const dataItem = {
           skill: skill,
-          id_datum: currentId,
+          datum_id: currentId,
         };
         //console.log('===dataItem', dataItem);
         saveSkillValue(dataItem);
@@ -324,10 +325,10 @@ const AdminList: React.FC<Props> = (props) => {
   };
 
   const handleEditSkillValue = (skill: any) => {
-    //console.log('===EDIT SKILL', skill);
+    // console.log('===EDIT SKILL', skill);
     setSkill(skill.skill);
-    setCurrentId(skill.skill_id);
-    setCurrentIdForSkillSave(skill.id_datum);
+    setSkillId(skill.id);
+    setCurrentIdForSkillSave(skill.datum_id);
     setSkillRedactionStatus(true);
     setModalInputSkill(true);
   };
@@ -427,27 +428,28 @@ const AdminList: React.FC<Props> = (props) => {
   };
 
   const savedModal = () => {
-    return (
-      <Modal
-        className={styles.customModalContent}
-        isOpen={modalIsSaved}
-        overlayClassName={styles.customOverlay}
-        onRequestClose={() => setModalIsSaved(false)}
-      >
-        <h2>Saving completed</h2>
-        <button
-          className={styles.btnClose}
-          onClick={() => {
-            setModalIsSaved(false);
-            setData('');
-            setAge('');
-            setSkill('');
-          }}
-        >
-          Close
-        </button>
-      </Modal>
-    );
+    return null;
+    // return (
+    //   <Modal
+    //     className={styles.customModalContent}
+    //     isOpen={modalIsSaved}
+    //     overlayClassName={styles.customOverlay}
+    //     onRequestClose={() => setModalIsSaved(false)}
+    //   >
+    //     <h2>Saving completed</h2>
+    //     <button
+    //       className={styles.btnClose}
+    //       onClick={() => {
+    //         setModalIsSaved(false);
+    //         setData('');
+    //         setAge('');
+    //         setSkill('');
+    //       }}
+    //     >
+    //       Close
+    //     </button>
+    //   </Modal>
+    // );
   };
 
   const renderConfirm = () => {
@@ -572,12 +574,12 @@ const AdminList: React.FC<Props> = (props) => {
                   <td>{dataItem.age}</td>
                   <td className={styles.skill_area}>
                     {dataItem.skills.map((skill: any) => (
-                      <div className={styles.skill_row} key={skill.skill_id}>
+                      <div className={styles.skill_row} key={skill.id}>
                         {skill.skill}
                         <div>
                           <span
                             className={styles.deleteSkill}
-                            onClick={() => deleteSkillValue(skill.skill_id)}
+                            onClick={() => deleteSkillValue(skill.id)}
                           >
                             x
                           </span>

@@ -13,13 +13,14 @@ export const adminListAPI = {
     return put(`admin-list/update/${data.id}`, data);
   },
   async updateSkill(data: any) {
-    return put(`admin-list/update-skill/${data.skill_id}`, data);
+    console.log('===data', data);
+    return put(`admin-list/update-skill/${data.id}`, data);
   },
   async get(id: number) {
     return get(`admin-list/get/${id}`); // Используем метод GET и корректный URL
   },
   async deleteSkillById(id: number) {
-    return deleteById('admin-list/deleteSkillById/', id);
+    return deleteById('admin-list/deleteSkillById', id);
   },
   async deleteById(id: number) {
     return deleteById('admin-list/deleteById', id);

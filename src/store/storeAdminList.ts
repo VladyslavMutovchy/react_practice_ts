@@ -5,7 +5,7 @@ import { adminListAPI } from '../api/adminlist';
 interface Skill {
   id: number;        
   datum_id: number;  
-  value: string;     
+  skill: string;     
 }
 
 
@@ -60,8 +60,8 @@ export const editValue = createAsyncThunk(
 export const saveSkillValue = createAsyncThunk(
   'storeAdminList/saveSkillValue',
   async (dataItem: Skill) => {
-    const newDataItem = await adminListAPI.addSkill(dataItem);
-    return newDataItem;
+   return await adminListAPI.addSkill(dataItem);
+
   }
 );
 
@@ -76,8 +76,7 @@ export const deleteSkillValue = createAsyncThunk(
 export const editSkillValue = createAsyncThunk(
   'storeAdminList/editSkillValue',
   async (dataItem: Skill) => {
-    const newDataItem = await adminListAPI.updateSkill(dataItem);
-    return newDataItem;
+    return await adminListAPI.updateSkill(dataItem);
   }
 );
 
@@ -132,9 +131,12 @@ const storeAdminList = createSlice({
         }
       })
       .addCase(editSkillValue.fulfilled, (state, action) => {
+        console.log('===state.dataList', state.dataList);
         const index = state.dataList.findIndex(item => item.skills.some(skill => skill.id === action.payload.id));
+        console.log('===index', index);
         if (index !== -1) {
           const skillIndex = state.dataList[index].skills.findIndex((skill: Skill) => skill.id === action.payload.id);
+          console.log('===skillIndex', index);
           if (skillIndex !== -1) {
             state.dataList[index].skills[skillIndex] = action.payload;
           }
