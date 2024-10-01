@@ -22,7 +22,7 @@ export const adminListAPI = {
     return deleteById('admin-list/deleteSkillById/', id);
   },
   async deleteById(id: number) {
-    return deleteById('admin-list/deleteById/', id);
+    return deleteById('admin-list/deleteById', id);
   },
 
   async deleteAll() {

@@ -57,9 +57,9 @@ const AdminList: React.FC<Props> = (props) => {
   const [pageDataList, setPageDataList] = useState<any>([]);
   const [start, setStart] = useState<any>(0);
   const [limit, setLimit] = useState<any>(10);
-  console.log('===setLimit', setLimit);
-  console.log('===start', start);
-  console.log('===LENGTH', currentDataList.length);
+  //console.log('===setLimit', setLimit);
+  //console.log('===start', start);
+  //console.log('===LENGTH', currentDataList.length);
 
   useEffect(() => {
     getData();
@@ -92,7 +92,7 @@ const AdminList: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const pageDataList = currentDataList.slice(start, start + limit);
-    console.log('===pageDataList', pageDataList);
+    //console.log('===pageDataList', pageDataList);
     setPageDataList(pageDataList);
   }, [currentDataList, start, limit]);
 
@@ -292,14 +292,14 @@ const AdminList: React.FC<Props> = (props) => {
           skill_id: currentId,
           id_datum: currentIdForSkillSave,
         };
-        console.log('dataItem =>', dataItem);
+        //console.log('dataItem =>', dataItem);
         editSkillValue(dataItem);
       } else {
         const dataItem = {
           skill: skill,
           id_datum: currentId,
         };
-        console.log('===dataItem', dataItem);
+        //console.log('===dataItem', dataItem);
         saveSkillValue(dataItem);
       }
       setSkill('');
@@ -324,7 +324,7 @@ const AdminList: React.FC<Props> = (props) => {
   };
 
   const handleEditSkillValue = (skill: any) => {
-    console.log('===EDIT SKILL', skill);
+    //console.log('===EDIT SKILL', skill);
     setSkill(skill.skill);
     setCurrentId(skill.skill_id);
     setCurrentIdForSkillSave(skill.id_datum);
@@ -476,9 +476,6 @@ const AdminList: React.FC<Props> = (props) => {
     return null;
   };
 
-  // 90 items
-  // 20 items
-  // start = 80
   const pagesNumber = Math.ceil(currentDataList.length / limit);
   const currentPage = start / limit + 1;
   const isLastPage = pagesNumber === currentPage;
