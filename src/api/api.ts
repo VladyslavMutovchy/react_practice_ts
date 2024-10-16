@@ -59,10 +59,14 @@ addInterceptors(axiosFileInstance);
 const post = async (url: string, data: any, callback: (response: any) => void = () => {}, errorCallback: (error: any) => void = () => {}) => {
   try {
     const response:any = await axiosInstance.post(url, JSON.stringify(data));
-    callback?.(response);
-    return response.data;
+    if (response) {
+      callback?.(response);
+      return response.data;
+    }
+    throw('Server error');
   } catch (error) {
     errorCallback?.(error);
+    throw(error);
   }
 };
 

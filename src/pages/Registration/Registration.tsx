@@ -24,10 +24,14 @@ interface UseValidationReturn {
 
 // Валидация
 const useValidation = (value: string, validations: Validations): UseValidationReturn => {
-  const [isEmpty, setEmpty] = useState(true);
-  const [minLengthError, setMinLengthError] = useState(true);
-  const [isEmailError, setEmailError] = useState(true);
+  const [isEmpty, setEmpty] = useState(!!validations.isEmpty);
+  const [minLengthError, setMinLengthError] = useState(!!validations.minLength);
+  const [isEmailError, setEmailError] = useState(!!validations.isEmailError);
   const [isValid, setValidity] = useState(false);
+  // const [isEmpty, setEmpty] = useState(true);
+  // const [minLengthError, setMinLengthError] = useState(true);
+  // const [isEmailError, setEmailError] = useState(true);
+  // const [isValid, setValidity] = useState(false);
 
   useEffect(() => {
     for (const validation in validations) {
@@ -194,10 +198,16 @@ const Registration: React.FC<RegistrationProps> = ({ registration }) => {
         </label>
         <button
           className={styles.btn}
-          onClick={() => {console.log('======>',password.value, repeatPassword.value,
-            email.isValid,
-            password.isValid,
-            repeatPassword.isValid)
+          onClick={() => {
+            console.log(
+              '======>',
+              password.value, 
+              repeatPassword.value,
+              email,
+              password,
+              repeatPassword
+            )
+
             if (
               password.value === repeatPassword.value &&
               email.isValid &&
