@@ -3,11 +3,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import storeAbout from './storeAbout';
 import storeTaskList from './storeTaskList';
 import storeAdminList from './storeAdminList';
+import storeAuth from './storeAuth'
 
 
 
 const store = configureStore({
   reducer: {
+    storeAuth,
     storeAbout,
     storeTaskList,
     storeAdminList,
