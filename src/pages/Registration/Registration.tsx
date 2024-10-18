@@ -199,15 +199,6 @@ const Registration: React.FC<RegistrationProps> = ({ registration }) => {
         <button
           className={styles.btn}
           onClick={() => {
-            console.log(
-              '======>',
-              password.value, 
-              repeatPassword.value,
-              email,
-              password,
-              repeatPassword
-            )
-
             if (
               password.value === repeatPassword.value &&
               email.isValid &&

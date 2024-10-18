@@ -165,7 +165,10 @@ const Login: React.FC<LoginProps> = ({ login }) => {
         className={styles.btn}
         onClick={() => {
           console.log('===LOGIN VALIDATION', email.isValid, password.isValid);
-          if (!email.isValid || !password.isValid) {
+          if (password.value &&
+            email.isValid &&
+            password.isValid
+           ) {
             console.log('Ошибка валидации');
           } else {
             submitHandler();
