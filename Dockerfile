@@ -1,5 +1,5 @@
 # Базовый образ с Node.js
-FROM node:16-alpine
+FROM node:16
 
 # Устанавливаем рабочую директорию в контейнере
 WORKDIR /app

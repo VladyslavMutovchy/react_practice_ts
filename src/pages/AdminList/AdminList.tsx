@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RootState } from '../../store/store'; // Путь к файлу с типами состояния
 import { connect } from 'react-redux';
-import Modal from 'react-modal';
 import {
   saveValue,
   getData,
@@ -287,7 +286,7 @@ const AdminList: React.FC<Props> = (props) => {
 
   const handleSaveSkill = () => {
     if (skill.trim()) {
-      if (skillRedactionStatus == true) {
+      if (skillRedactionStatus === true) {
         const dataItem = {
           skill: skill,
           id: skillId,

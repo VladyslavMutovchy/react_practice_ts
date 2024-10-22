@@ -1,24 +1,23 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './../Home/Home';
-import About from './../About/About';
-import Dashboard from './../Dashboard/Dashboard';
-import TaskList from '../TaskList/TaskList';
-import AdminList from '../AdminList/AdminList';
-import PageNotFound from '../PageNotFound/PageNotFound';
-import Login from '../Login/Login';
-import Registration from '../Registration/Registration';
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
+import TaskList from './pages/TaskList/TaskList';
+import AdminList from './pages/AdminList/AdminList';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
+import Login from './pages/Login/Login';
+import Registration from './pages/Registration/Registration';
 import { connect } from 'react-redux';
-import { RootState } from '../../store/store';
-import { UserData } from '../../store/storeAuth';
+import { RootState } from './store/store';
+import { UserData } from './store/storeAuth';
 
 interface AppProps {
-  userData: UserData | null; // Используем тип UserData из вашего слайса
+  userData: UserData | null; 
 }
 
 const App: React.FC<AppProps> = (props) => {
   const { userData } = props;
-
+console.log('======>',userData);
   return (
     <div>
       <Routes>
@@ -26,7 +25,6 @@ const App: React.FC<AppProps> = (props) => {
         <Route path="/" element={<Home />} />
         {userData ? (
           <>
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/about" element={<About />} />
             <Route path="/task_list" element={<TaskList />} />
             <Route path="/admin-list" element={<AdminList />} />

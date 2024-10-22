@@ -63,7 +63,9 @@ const post = async (url: string, data: any, callback: (response: any) => void = 
       callback?.(response);
       return response.data;
     }
-    throw('Server error');
+    throw new Error('Some error message');
+
+
   } catch (error) {
     errorCallback?.(error);
     throw(error);

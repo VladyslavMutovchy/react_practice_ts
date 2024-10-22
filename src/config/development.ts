@@ -1,7 +1,7 @@
 const siteURL = 'http://localhost:3000';
 const backHost = 'http://localhost:3002/';
 
-export default {
+const config = {
   siteURL,
   backHost,
   backURL: `${backHost}api/v1/`,
@@ -10,6 +10,4 @@ export default {
   // googleClientId: '699726414230-rngjos248v7khf5gk03tamu9pqikd8ff.apps.googleusercontent.com'
 };
 
-
-
-
+export default config;
