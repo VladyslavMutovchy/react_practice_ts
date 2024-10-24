@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { authAPI } from '../api/auth';
+import { getUserData } from '../utils/functions';
 
 // Определение типов для данных пользователя
 export interface UserData {
@@ -17,7 +18,7 @@ interface AuthState {
 
 // Начальное состояние
 const initialState: AuthState = {
-  user: null,
+  user: getUserData(),
   loading: false,
   error: null,
 };
